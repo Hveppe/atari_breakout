@@ -23,8 +23,12 @@ class ball_class:
         if self.x <= 0 or self.x >= screen_width:
             self.velocity.x = -self.velocity.x
         
-        if self.y <= 0 or self.y >= screen_height:
+        if self.y <= 0:
             self.velocity.y = -self.velocity.y
+
+        if  self.y >= screen_height:
+            return True
+        return False
             
     def draw(self):
         pygame.draw.circle(self.display, self.color, (self.x, self.y), self.radius)

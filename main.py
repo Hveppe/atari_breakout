@@ -2,6 +2,7 @@ import pygame
 import math
 
 from player_ball import ball_class, player_class
+from Blocks import blocks_class
 
 pygame.init()
 
@@ -22,8 +23,21 @@ def collisionchecker_circle_square(circle, square):
     return False
 
 # Init af klasser
-ball = ball_class(10, 10, display)
+balls = [ball_class(screenwith/2-10, screenheight-50, display)]
 player = player_class(screenwith/2-50, screenheight-40, display)
+
+# Laver blokene (Den er dårlig ikke mob)
+y = 40
+colors = [(255, 51, 51), (255, 153, 102), (255, 255, 51), (153, 255, 51), (51, 51, 204)]
+blocks = []
+for i in range(10):
+    x = screenwith/2 - 850
+
+    for _ in range(16):
+        blocks.append(blocks_class(x, y, colors[i % len(colors)], display))
+        x += 110
+
+    y += 55
 
 # variabler
 speed = 0
@@ -44,13 +58,31 @@ while True:
             if event.key == pygame.K_LEFT:
                 speed += 1
 
-    if collisionchecker_circle_square(ball, player):
-        ball.velocity.x = -ball.velocity.x
-        ball.velocity.y = -ball.velocity.y
+    
+    for ball in balls:
+        if collisionchecker_circle_square(ball, player):
+            ball.velocity.y = -ball.velocity.y
             
-    ball.update((screenwith, screenheight))
+        if ball.update((screenwith, screenheight)):
+            balls.remove(ball)
+        
+        
+        ball.draw()
+
+    for blok in blocks:
+        
+        blok.draw()
+
+        for ball in balls:
+            if collisionchecker_circle_square(ball, blok):
+                ball.velocity.y = -ball.velocity.y
+                ball.velocity.x = -ball.velocity.x
+                blocks.remove(blok)
+    
     player.update(speed, screenwith)
     player.draw()
-    ball.draw()
+
+    if len(balls) == 0:
+        exit()
 
     pygame.display.flip()
