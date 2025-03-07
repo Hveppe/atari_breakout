@@ -37,7 +37,7 @@ class ball_class:
 
 
 class player_class:
-    width = 100 * scale_faktor
+    width = 200 * scale_faktor
     height = 20 * scale_faktor
     speed = 10
     color = (255, 255, 255)
