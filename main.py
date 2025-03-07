@@ -30,17 +30,21 @@ balls = [ball_class(screenwith/2-10, screenheight-80, display)]
 player = player_class(screenwith/2-50, screenheight-70, display)
 
 # Laver blokene (Den er dårlig ikke mob)
-y = 40
 colors = [(255, 51, 51), (255, 153, 102), (255, 255, 51), (153, 255, 51), (51, 51, 204)]
 blocks = []
-for i in range(10): # Laver blokke hen af y-aksen
-    x = screenwith/2 - (850*scale_faktor)
 
-    for _ in range(16): # Laver blokke hen af x-aksen
-        blocks.append(blocks_class(x, y, colors[i % len(colors)], display))
-        x += 110 * scale_faktor
+def more_bloks():
+    y = 40
+    for i in range(10): # Laver blokke hen af y-aksen
+        x = screenwith/2 - (850*scale_faktor)
 
-    y += 55 * scale_faktor
+        for _ in range(16): # Laver blokke hen af x-aksen
+            blocks.append(blocks_class(x, y, colors[i % len(colors)], display))
+            x += 110 * scale_faktor
+
+        y += 55 * scale_faktor
+
+more_bloks()
 
 # variabler
 speed = 0
@@ -92,5 +96,8 @@ while True:
 
     if len(balls) == 0:
         exit()
+
+    if len(blocks) == 0:
+        more_bloks()
 
     pygame.display.flip()
