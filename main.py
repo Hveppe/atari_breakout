@@ -73,7 +73,11 @@ while True:
             
             # Bevægelse bestemmes ud fra hvor den rammer player 
             ball.velocity.x = (ball.x-(player.x+(player.width/2)))/(player.width/2)
-            ball.velocity.y = -math.sqrt(1-(ball.velocity.x**2))
+
+            try:
+                ball.velocity.y = -math.sqrt(1-(ball.velocity.x**2))
+            except ValueError:
+                ball.velocity.y = -ball.velocity.y
 
         if ball.update((screenwith, screenheight)):
             balls.remove(ball)
@@ -88,7 +92,6 @@ while True:
         for ball in balls:
             if collisionchecker_circle_square(ball, blok):
                 ball.velocity.y = -ball.velocity.y
-                #ball.velocity.x = -ball.velocity.x
                 blocks.remove(blok)
     
     player.update(speed, screenwith)
