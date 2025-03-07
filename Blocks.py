@@ -1,11 +1,12 @@
 import pygame
+from Define import scale_faktor
 
 pygame.init()
 
 class blocks_class:
-    width = 100
-    height = 50
-
+    width = 100*scale_faktor
+    height = 50*scale_faktor
+    
     def __init__(self, x, y, color, display):
         self.x = x
         self.y = y
