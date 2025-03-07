@@ -32,7 +32,8 @@ class ball_class:
 
 class player_class:
     width = 100
-    height = 100
+    height = 20
+    speed = 1
     color = (255, 255, 255)
     
     def __init__(self, x, y, display):
@@ -43,8 +44,16 @@ class player_class:
         self.velocity = pygame.Vector2()
         self.velocity.xy = 0, 0
     
-    def update(self, speed):
-        self.velocity.x = speed
+    def update(self, dir, screen_width):
+        self.velocity.x = dir
+        self.x += self.velocity.x * self.speed
+
+        if self.x < 0:
+            self.x = 0
+        if self.x > screen_width-self.width:
+            self.x = screen_width-self.width
+
+
 
     def draw(self):
-        pygame.draw.rect(self.display, self.color, (self.x, self.y), (self.width, self.height))
+        pygame.draw.rect(self.display, self.color, pygame.Rect(self.x, self.y, self.width, self.height))
