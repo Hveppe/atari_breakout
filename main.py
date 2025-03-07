@@ -32,10 +32,10 @@ player = player_class(screenwith/2-50, screenheight-70, display)
 y = 40
 colors = [(255, 51, 51), (255, 153, 102), (255, 255, 51), (153, 255, 51), (51, 51, 204)]
 blocks = []
-for i in range(10):
+for i in range(10): # Laver blokke hen af y-aksen
     x = screenwith/2 - 850
 
-    for _ in range(16):
+    for _ in range(16): # Laver blokke hen af x-aksen
         blocks.append(blocks_class(x, y, colors[i % len(colors)], display))
         x += 110
 
@@ -65,8 +65,11 @@ while True:
     for ball in balls:
         # Kode som der håndterer kollision mellem balls og player 
         if collisionchecker_circle_square(ball, player):
-            ball.velocity.y = -ball.velocity.y
             
+            # Bevægelse bestemmes ud fra hvor den rammer player 
+            ball.velocity.x = (ball.x-(player.x+(player.width/2)))/(player.width/2)
+            ball.velocity.y = -math.sqrt(1-(ball.velocity.x**2))
+
         if ball.update((screenwith, screenheight)):
             balls.remove(ball)
         

@@ -9,7 +9,7 @@ class ball_class:
     def __init__(self, x, y, display):
         self.x = x
         self.y = y
-        self.radius = 10
+        self.radius = 7
         self.display = display
 
         self.velocity = pygame.Vector2()
