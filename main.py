@@ -36,7 +36,7 @@ blocks = []
 def more_bloks():
     y = 40
     for i in range(10): # Laver blokke hen af y-aksen
-        x = screenwith/2 - (850*scale_faktor)
+        x = screenwith/2 - (870*scale_faktor)
 
         for _ in range(16): # Laver blokke hen af x-aksen
             blocks.append(blocks_class(x, y, colors[i % len(colors)], display))
