@@ -1,0 +1,1 @@
+import pygame; pygame.init();Base_w, Base_h = 1920, 1080;screen_width, screen_height = pygame.display.Info().current_w, pygame.display.Info().current_h;scale_x, scale_y = screen_width/Base_w, screen_height/Base_h;scale_faktor = min(scale_x, scale_y)

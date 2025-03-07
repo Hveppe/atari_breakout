@@ -4,6 +4,7 @@ import math
 
 from player_ball import ball_class, player_class
 from Blocks import blocks_class
+from Define import scale_faktor
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -33,13 +34,13 @@ y = 40
 colors = [(255, 51, 51), (255, 153, 102), (255, 255, 51), (153, 255, 51), (51, 51, 204)]
 blocks = []
 for i in range(10): # Laver blokke hen af y-aksen
-    x = screenwith/2 - 850
+    x = screenwith/2 - (850*scale_faktor)
 
     for _ in range(16): # Laver blokke hen af x-aksen
         blocks.append(blocks_class(x, y, colors[i % len(colors)], display))
-        x += 110
+        x += 110 * scale_faktor
 
-    y += 55
+    y += 55 * scale_faktor
 
 # variabler
 speed = 0
