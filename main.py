@@ -1,5 +1,6 @@
 import pygame
 import math
+import random
 
 
 from player_ball import ball_class, player_class
@@ -82,7 +83,6 @@ while True:
         if ball.update((screenwith, screenheight)):
             balls.remove(ball)
         
-        
         ball.draw()
 
     for blok in blocks:
@@ -92,7 +92,14 @@ while True:
         for ball in balls:
             if collisionchecker_circle_square(ball, blok):
                 ball.velocity.y = -ball.velocity.y
-                blocks.remove(blok)
+                
+                try:
+                    if random.randint(1, 100) == 1:
+                        balls.append(ball_class(blok.x+(blok.width/2), blok.y+(blok.height/2), display))
+
+                    blocks.remove(blok)
+                except ValueError:
+                    pass
     
     player.update(speed, screenwith)
     player.draw()
