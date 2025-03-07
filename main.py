@@ -23,8 +23,8 @@ def collisionchecker_circle_square(circle, square):
     return False
 
 # Init af klasser
-balls = [ball_class(screenwith/2-10, screenheight-50, display)]
-player = player_class(screenwith/2-50, screenheight-40, display)
+balls = [ball_class(screenwith/2-10, screenheight-80, display)]
+player = player_class(screenwith/2-50, screenheight-70, display)
 
 # Laver blokene (Den er dårlig ikke mob)
 y = 40
@@ -60,6 +60,7 @@ while True:
 
     
     for ball in balls:
+        # Kode som der håndterer kollision mellem balls og player 
         if collisionchecker_circle_square(ball, player):
             ball.velocity.y = -ball.velocity.y
             
@@ -76,7 +77,7 @@ while True:
         for ball in balls:
             if collisionchecker_circle_square(ball, blok):
                 ball.velocity.y = -ball.velocity.y
-                ball.velocity.x = -ball.velocity.x
+                #ball.velocity.x = -ball.velocity.x
                 blocks.remove(blok)
     
     player.update(speed, screenwith)
