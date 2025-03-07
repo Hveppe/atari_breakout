@@ -4,6 +4,7 @@ pygame.init()
 
 class ball_class:
     color = (255, 255, 255)
+    speed = 10
 
     def __init__(self, x, y, display):
         self.x = x
@@ -12,11 +13,11 @@ class ball_class:
         self.display = display
 
         self.velocity = pygame.Vector2()
-        self.velocity.xy = 0.5, 0.5
+        self.velocity.xy = (2**(1/2))/2, (2**(1/2))/2
 
     def update(self, screen_size):
-        self.x += self.velocity.x
-        self.y += self.velocity.y
+        self.x += self.velocity.x * self.speed
+        self.y += self.velocity.y * self.speed
 
         screen_width, screen_height = screen_size
 
@@ -37,7 +38,7 @@ class ball_class:
 class player_class:
     width = 100
     height = 20
-    speed = 1
+    speed = 10
     color = (255, 255, 255)
     
     def __init__(self, x, y, display):

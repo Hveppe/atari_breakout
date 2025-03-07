@@ -1,10 +1,12 @@
 import pygame
 import math
 
+
 from player_ball import ball_class, player_class
 from Blocks import blocks_class
 
 pygame.init()
+clock = pygame.time.Clock()
 
 screenwith, screenheight = pygame.display.Info().current_w, pygame.display.Info().current_h
 display = pygame.display.set_mode((screenwith, screenheight))
@@ -43,6 +45,7 @@ for i in range(10):
 speed = 0
 
 while True:
+    clock.tick(60)
     display.fill((0, 0, 0))
 
     for event in pygame.event.get():
