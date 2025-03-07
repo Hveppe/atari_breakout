@@ -1,7 +1,7 @@
 import pygame
 import math
 
-from player_blocks import ball_class, player_class
+from player_ball import ball_class, player_class
 
 pygame.init()
 
