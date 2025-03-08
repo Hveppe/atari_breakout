@@ -4,14 +4,14 @@ from Define import scale_faktor
 pygame.init()
 
 class ball_class:
-    color = (255, 255, 255)
     speed = 10
 
-    def __init__(self, x, y, display):
+    def __init__(self, x, y, display, color):
         self.x = x
         self.y = y
-        self.radius = 7 * scale_faktor
+        self.radius = 10 * scale_faktor
         self.display = display
+        self.color = color
 
         self.velocity = pygame.Vector2()
         self.velocity.xy = (2**(1/2))/2, (2**(1/2))/2

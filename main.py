@@ -26,11 +26,11 @@ def collisionchecker_circle_square(circle, square):
         return True
     return False
 
-# Init af klasser
-balls = [ball_class(screenwith/2-10, screenheight-80, display)]
+# Skaber player og den første ball
+balls = [ball_class(screenwith/2-10, screenheight-80, display, (255, 255, 255))]
 player = player_class(screenwith/2-50, screenheight-70, display)
 
-# Laver blokene (Den er dårlig ikke mob)
+# Laver blokene
 colors = [(255, 51, 51), (255, 153, 102), (255, 255, 51), (153, 255, 51), (51, 51, 204)]
 blocks = []
 
@@ -46,8 +46,6 @@ def more_bloks():
         y += 55 * scale_faktor
 
 more_bloks()
-
-# variabler
 speed = 0
 
 while True:
@@ -94,8 +92,8 @@ while True:
                 ball.velocity.y = -ball.velocity.y
                 
                 try:
-                    if random.randint(1, 100) == 1:
-                        balls.append(ball_class(blok.x+(blok.width/2), blok.y+(blok.height/2), display))
+                    if random.randint(1, 20) == 1:
+                        balls.append(ball_class(blok.x+(blok.width/2), blok.y+(blok.height/2), display, blok.color))
 
                     blocks.remove(blok)
                 except ValueError:
