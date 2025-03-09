@@ -8,6 +8,7 @@ from Blocks import blocks_class
 from Define import scale_faktor
 
 pygame.init()
+pygame.font.init()
 clock = pygame.time.Clock()
 
 screenwith, screenheight = pygame.display.Info().current_w, pygame.display.Info().current_h
@@ -35,7 +36,7 @@ colors = [(255, 51, 51), (255, 153, 102), (255, 255, 51), (153, 255, 51), (51, 5
 blocks = []
 
 def more_bloks():
-    y = 40
+    y = 55 * scale_faktor
     for i in range(10): # Laver blokke hen af y-aksen
         x = screenwith/2 - (870*scale_faktor)
 
@@ -45,6 +46,7 @@ def more_bloks():
 
         y += 55 * scale_faktor
 
+Font = pygame.font.SysFont('Comic Sans MS', int(round(40*scale_faktor, 0)), bold=True, italic=False)
 speed = 0
 score = 0
 
@@ -112,5 +114,9 @@ while True:
 
     if score >= 1976:
        player.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+    # Display af score
+    tekst = Font.render(f'{score}'.zfill(4), True, (255, 255, 255))
+    display.blit(tekst, (screenwith/2 - tekst.get_width()/2, 0))
 
     pygame.display.flip()
