@@ -45,8 +45,8 @@ def more_bloks():
 
         y += 55 * scale_faktor
 
-more_bloks()
 speed = 0
+score = 0
 
 while True:
     clock.tick(60)
@@ -94,8 +94,10 @@ while True:
                 try:
                     if random.randint(1, 20) == 1:
                         balls.append(ball_class(blok.x+(blok.width/2), blok.y+(blok.height/2), display, blok.color))
-
                     blocks.remove(blok)
+
+                    score += 8
+                        
                 except ValueError:
                     pass
     
@@ -107,5 +109,8 @@ while True:
 
     if len(blocks) == 0:
         more_bloks()
+
+    if score >= 1976:
+       player.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
     pygame.display.flip()
