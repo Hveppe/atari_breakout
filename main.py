@@ -28,8 +28,10 @@ def collisionchecker_circle_square(circle, square):
     return False
 
 # Skaber player og den første ball
-balls = [ball_class(screenwith/2-10, screenheight-80, display, (255, 255, 255))]
-player = player_class(screenwith/2-50, screenheight-70, display)
+balls = [ball_class(screenwith/2-10, screenheight-(90*scale_faktor), display, (255, 255, 255))]
+balls[0].velocity.xy = 0, 0
+
+player = player_class(screenwith/2-50, screenheight-70, display, 3)
 
 # Laver blokene
 colors = [(255, 51, 51), (255, 153, 102), (255, 255, 51), (153, 255, 51), (51, 51, 204)]
@@ -47,26 +49,31 @@ def more_bloks():
         y += 55 * scale_faktor
 
 Font = pygame.font.SysFont('Comic Sans MS', int(round(40*scale_faktor, 0)), bold=True, italic=False)
-speed = 0
-score = 0
+speed = score = 0
+bloks_to_remove = []
+fired = False
 
 while True:
-    clock.tick(60)
+    clock.tick(60) # Låser framerate til 60 fps
     display.fill((0, 0, 0))
 
+    # Controls
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                exit()
             if event.key == pygame.K_RIGHT:
                 speed += 1
             if event.key == pygame.K_LEFT:
                 speed -= 1
+            if fired is False and event.key == pygame.K_UP:
+                fired = True
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 speed -= 1
             if event.key == pygame.K_LEFT:
                 speed += 1
-
     
     for ball in balls:
         # Kode som der håndterer kollision mellem balls og player 
@@ -85,35 +92,52 @@ while True:
         
         ball.draw()
 
+    # Her håndterer programmet blokkene og deres interaktioner med balls
+    bloks_to_remove.clear()
     for blok in blocks:
-        
-        blok.draw()
 
         for ball in balls:
+            blok.draw()
+            
             if collisionchecker_circle_square(ball, blok):
                 ball.velocity.y = -ball.velocity.y
                 
                 try:
                     if random.randint(1, 20) == 1:
                         balls.append(ball_class(blok.x+(blok.width/2), blok.y+(blok.height/2), display, blok.color))
-                    blocks.remove(blok)
+                    bloks_to_remove.append(blok)
 
                     score += 8
                         
                 except ValueError:
                     pass
-    
-    player.update(speed, screenwith)
-    player.draw()
 
+    for blok in bloks_to_remove:
+        try:
+            blocks.remove(blok)
+        except ValueError:
+            pass
+    
+    # Handlinger som påvirker player
+    player.update(speed, screenwith)
+
+    if fired is False:
+        balls[0].x, balls[0].y = player.x + player.width/2, player.y
+
+    # Diverse event check
     if len(balls) == 0:
-        exit()
+        if player.HP > 0:
+            player.HP -= 1
+            fired = False
+            balls.append(ball_class(player.x + player.width/2, player.y, display, (255, 255, 255)))
+        else:
+            exit()
 
     if len(blocks) == 0:
         more_bloks()
 
-    if score >= 1976:
-       player.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    if score >= 1976 and player.Random is False:
+       player.easter()
 
     # Display af score
     tekst = Font.render(f'{score}'.zfill(4), True, (255, 255, 255))

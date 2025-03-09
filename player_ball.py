@@ -1,12 +1,14 @@
 import pygame
+import random
 from Define import scale_faktor
 
 pygame.init()
+pygame.font.init()
 
 class ball_class:
     speed = 10
 
-    def __init__(self, x, y, display, color):
+    def __init__(self, x: float, y: float, display, color: tuple):
         self.x = x
         self.y = y
         self.radius = 10 * scale_faktor
@@ -39,16 +41,21 @@ class ball_class:
 class player_class:
     width = 200 * scale_faktor
     height = 20 * scale_faktor
+    radius = 30*scale_faktor
     speed = 10
     color = (255, 255, 255)
+    Random = False
     
-    def __init__(self, x, y, display):
+    def __init__(self, x: float, y: float, display, HP: int):
         self.x = x
         self.y = y
         self.display = display
+        self.HP = HP
 
         self.velocity = pygame.Vector2()
         self.velocity.xy = 0, 0
+
+        self.font = pygame.font.SysFont('Comic Sans MS', int(round(35*scale_faktor, 0)), bold=True, italic=False)
     
     def update(self, dir, screen_width):
         self.velocity.x = dir
@@ -59,7 +66,18 @@ class player_class:
         if self.x > screen_width-self.width:
             self.x = screen_width-self.width
 
+        if self.Random is True:
+            self.color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
+        self.draw()
+    
+    def easter(self):
+        self.width *= 2
+        self.Random = True
 
     def draw(self):
         pygame.draw.rect(self.display, self.color, pygame.Rect(self.x, self.y, self.width, self.height))
+
+        pygame.draw.circle(self.display, (255, 255, 255), (self.radius+5*scale_faktor, self.radius+5*scale_faktor), self.radius)
+        tekst = self.font.render(f"x{self.HP}", True, (0, 0, 0))
+        self.display.blit(tekst, (self.radius-tekst.get_width()/2, self.radius-tekst.get_height()/2))

@@ -7,7 +7,7 @@ class blocks_class:
     width = 100*scale_faktor
     height = 50*scale_faktor
     
-    def __init__(self, x, y, color, display):
+    def __init__(self, x: float, y: float, color: tuple, display):
         self.x = x
         self.y = y
         self.color = color
