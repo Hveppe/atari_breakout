@@ -54,7 +54,7 @@ blocks = []
 
 def more_bloks():
     y = 55 * scale_faktor
-    for i in range(10): # Laver blokke hen af y-aksen
+    for i in range(8): # Laver blokke hen af y-aksen
         x = screenwith/2 - (875*scale_faktor)
 
         for _ in range(16): # Laver blokke hen af x-aksen
@@ -122,7 +122,7 @@ while True:
                         balls.append(ball_class(blok.x+(blok.width/2), blok.y+(blok.height/2), display, blok.color))
                     bloks_to_remove.append(blok)
 
-                    score += 8
+                    score += 4
                         
                 except ValueError:
                     pass
