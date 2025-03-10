@@ -24,9 +24,15 @@ class ball_class:
 
         screen_width, screen_height = screen_size
 
+        # Checker kollision med kanterne af skærmen
         if self.x <= 0 or self.x >= screen_width:
             self.velocity.x = -self.velocity.x
-        
+
+            if self.x <= 0:
+                self.x += self.radius
+            elif self.x >= screen_width:
+                self.x -= self.radius
+
         if self.y <= 0:
             self.velocity.y = -self.velocity.y
 

@@ -1,3 +1,18 @@
+"""
+##########################################
+#                                        #
+#             Atari Breakout             #
+#            Skrevet i Python            #
+#                                        #
+#              Python koden              #
+#            skrevet af Hveppe           #
+#                                        #
+#   Orginale spil skrevet af Atari inc.  #
+#                                        #
+##########################################
+"""
+
+
 import pygame
 import math
 import random
