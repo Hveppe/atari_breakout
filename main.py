@@ -116,8 +116,14 @@ while True:
             blok.draw()
             
             if collisionchecker_circle_square(ball, blok):
-                ball.velocity.y = -ball.velocity.y
                 
+                # basret på hvor bolden rammer blokken afgår ændring af vektoren
+                if blok.y < ball.y < blok.y + blok.height:
+                    ball.velocity.x = -ball.velocity.x
+                else:
+                    ball.velocity.y = -ball.velocity.y
+
+                # Power up
                 try:
                     if random.randint(1, 20) == 1:
                         balls.append(ball_class(blok.x+(blok.width/2), blok.y+(blok.height/2), display, blok.color))
