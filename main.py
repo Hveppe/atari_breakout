@@ -65,6 +65,7 @@ def more_bloks():
 
 Font = pygame.font.SysFont('Comic Sans MS', int(round(40*scale_faktor, 0)), bold=True, italic=False)
 speed = score = 0
+right = left = False
 bloks_to_remove = []
 fired = False
 
@@ -73,21 +74,26 @@ while True:
     display.fill((0, 0, 0))
 
     # Controls
+    # TODO: Lav noget bedre
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 exit()
-            if event.key == pygame.K_RIGHT:
+            if (event.key == pygame.K_RIGHT or event.key == pygame.K_d) and speed != 1:
+                right = True
                 speed += 1
-            if event.key == pygame.K_LEFT:
+            if (event.key == pygame.K_LEFT or event.key == pygame.K_a) and speed != -1:
+                left = True
                 speed -= 1
-            if fired is False and event.key == pygame.K_UP:
+            if fired is False and (event.key == pygame.K_UP or event.key == pygame.K_w):
                 fired = True
 
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_RIGHT:
+            if (event.key == pygame.K_RIGHT or event.key == pygame.K_d) and right:
+                right = False
                 speed -= 1
-            if event.key == pygame.K_LEFT:
+            if (event.key == pygame.K_LEFT or event.key == pygame.K_a) and left:
+                left = False
                 speed += 1
     
     for ball in balls:
