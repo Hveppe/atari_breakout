@@ -39,6 +39,25 @@ class ball_class:
         if  self.y >= screen_height:
             return True
         return False
+    
+    def Ball_Blok_collision(self, blok):
+        # Bestemmer den primærer kollisions retning (Det betyder hvilken side den rammer blokken)
+        # Dette gøres ved at tjekke overlap i alle retninger
+
+        overlap_venstre = self.x + self.radius - blok.x
+        overlap_højre = blok.x + blok.width - (self.x - self.radius)
+        overlap_top = self.y + self.radius - blok.y
+        overlap_bund = blok.y + blok.height - (self.y - self.radius)
+
+        # Finder det mindste overlap
+        mindste_overlap = min(overlap_venstre, overlap_højre, overlap_top, overlap_bund)
+
+        # Ændrer den pågældene vektor koordinat
+        if mindste_overlap == overlap_højre or mindste_overlap == overlap_venstre:
+            self.velocity.x = -self.velocity.x
+        elif mindste_overlap == overlap_top or mindste_overlap == overlap_bund:
+            self.velocity.y = -self.velocity.y
+
             
     def draw(self):
         pygame.draw.circle(self.display, self.color, (self.x, self.y), self.radius)

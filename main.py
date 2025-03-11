@@ -122,12 +122,8 @@ while True:
             blok.draw()
             
             if collisionchecker_circle_square(ball, blok):
-                
-                # basret på hvor bolden rammer blokken afgår ændring af vektoren
-                if blok.y < ball.y < blok.y + blok.height:
-                    ball.velocity.x = -ball.velocity.x
-                else:
-                    ball.velocity.y = -ball.velocity.y
+            
+                ball.Ball_Blok_collision(blok)
 
                 # Power up
                 try:
