@@ -100,7 +100,8 @@ while True:
             try:
                 ball.velocity.y = -math.sqrt(1-(ball.velocity.x**2))
             except ValueError:
-                ball.velocity.y = -ball.velocity.y
+                ball.velocity.x = 0.99
+                ball.velocity.y = -math.sqrt(1-(ball.velocity.x**2))
 
         if ball.update((screenwith, screenheight)):
             balls.remove(ball)
