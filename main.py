@@ -46,22 +46,24 @@ def collisionchecker_circle_square(circle, square):
 balls = [ball_class(screenwith/2-10, screenheight-(90*scale_faktor), display, (255, 255, 255))]
 balls[0].velocity.xy = 0, 0
 
-player = player_class(screenwith/2-50, screenheight-70, display, 3)
+player = player_class(screenwith/2-(50*scale_faktor), screenheight-(70*scale_faktor), display, 3)
 
 # Laver blokene
 colors = [(255, 51, 51), (255, 153, 102), (255, 255, 51), (153, 255, 51), (51, 51, 204)]
 blocks = []
 
 def more_bloks():
+    point = 8
     y = 55 * scale_faktor
     for i in range(8): # Laver blokke hen af y-aksen
         x = screenwith/2 - (875*scale_faktor)
 
         for _ in range(16): # Laver blokke hen af x-aksen
-            blocks.append(blocks_class(x, y, colors[i % len(colors)], display))
+            blocks.append(blocks_class(x, y, colors[i % len(colors)], point, display))
             x += 110 * scale_faktor
 
         y += 55 * scale_faktor
+        point -= 1
 
 Font = pygame.font.SysFont('Comic Sans MS', int(round(40*scale_faktor, 0)), bold=True, italic=False)
 speed = score = 0
@@ -131,7 +133,7 @@ while True:
                         balls.append(ball_class(blok.x+(blok.width/2), blok.y+(blok.height/2), display, blok.color))
                     bloks_to_remove.append(blok)
 
-                    score += 4
+                    score += blok.point
                         
                 except ValueError:
                     pass
